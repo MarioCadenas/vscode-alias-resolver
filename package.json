@@ -2,6 +2,7 @@
 	"name": "alias-resolver",
 	"displayName": "alias-resolver",
 	"description": "Automatically resolve webpack aliases",
+	"publisher": "mario-cadenas",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.44.0"
@@ -10,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:alias-resolver.helloWorld"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
