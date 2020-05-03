@@ -15,12 +15,17 @@
 	],
 	"main": "./extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "alias-resolver.helloWorld",
-				"title": "Hello World"
+		"configuration": {
+			"title": "alias-resolver",
+			"type": "object",
+			"properties": {
+				"file": {
+					"type": "string",
+					"default": "",
+          "description": "File with alias mappings such as webpack.js or rollup.config.js"
+				}
 			}
-		]
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",
