@@ -35,7 +35,6 @@ function activate(context) {
       ConfigParser.createMappingsFromConfig(text, ctx);
 
       const {
-        provideDocumentLinks,
         provideCompletionItems,
         provideDefinition,
       } = javascriptProvider.providers;
@@ -46,11 +45,6 @@ function activate(context) {
         ...(javascriptProvider.triggerCharacters || [])
       );
 
-      const documentLinkDisposable = vscode.languages.registerDocumentLinkProvider(
-        javascriptProvider.selector,
-        { provideDocumentLinks }
-      );
-
       const definitionDisposable = vscode.languages.registerDefinitionProvider(
         javascriptProvider.selector,
         { provideDefinition }
@@ -58,7 +52,6 @@ function activate(context) {
 
       context.subscriptions.push(
         completionItemDisposable,
-        documentLinkDisposable,
         definitionDisposable
       );
     });
