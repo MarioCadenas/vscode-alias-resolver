@@ -1,7 +1,7 @@
-const vscode = require("vscode");
+const vscode = require('vscode');
 
 function getConfig() {
-  const { file, path } = vscode.workspace.getConfiguration("alias-resolver");
+  const { file, path } = vscode.workspace.getConfiguration('alias-resolver');
 
   return {
     file,

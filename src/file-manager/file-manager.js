@@ -1,5 +1,5 @@
-const path = require("path");
-const vscode = require("vscode");
+const path = require('path');
+const vscode = require('vscode');
 const {
   getNodesInPath,
   isAliasPath,
@@ -7,9 +7,9 @@ const {
   getAliasFromPath,
   resolveAliasPath,
   isAbsolutePath,
-} = require("../utils");
-const { DEFAULT_FILE } = require("../constants");
-const File = require("./file");
+} = require('../utils');
+const { DEFAULT_FILE } = require('../constants');
+const File = require('./file');
 
 class FileManager {
   constructor(document, position) {
@@ -57,7 +57,7 @@ class FileManager {
         return false;
       }
 
-      const [fileWithoutExtension] = f.fileName.split(".");
+      const [fileWithoutExtension] = f.fileName.split('.');
 
       return file === fileWithoutExtension;
     });

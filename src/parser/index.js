@@ -1,1 +1,1 @@
-module.exports = require("./config-parser");
+module.exports = require('./config-parser');
