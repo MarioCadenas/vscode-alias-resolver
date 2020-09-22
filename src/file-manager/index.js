@@ -1,1 +1,1 @@
-module.exports = require('./file-manager');
+module.exports = require("./file-manager");

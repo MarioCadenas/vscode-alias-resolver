@@ -1,1 +1,1 @@
-module.exports = { javascriptProvider: require('./provider') };
+module.exports = { javascriptProvider: require("./provider") };

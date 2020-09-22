@@ -1,7 +1,7 @@
-const vscode = require('vscode');
-const path = require('path');
-const { importStringRange } = require('../../utils');
-const FileManager = require('../../file-manager');
+const vscode = require("vscode");
+const path = require("path");
+const { importStringRange } = require("../../utils");
+const FileManager = require("../../file-manager");
 
 function toCompletion(importRange, fileOrFolder) {
   const { name } = path.parse(fileOrFolder.fileName);
@@ -10,7 +10,7 @@ function toCompletion(importRange, fileOrFolder) {
     label: fileOrFolder.fileName,
     kind:
       vscode.CompletionItemKind[
-        fileOrFolder.isDirectory ? 'Directory' : 'File'
+        fileOrFolder.isDirectory ? "Directory" : "File"
       ],
     sortText: `a_${fileOrFolder.fileName}`,
     textEdit: new vscode.TextEdit(importRange, name),

@@ -1,6 +1,6 @@
-const vscode = require('vscode');
-const path = require('path');
-const FileManager = require('../../file-manager');
+const vscode = require("vscode");
+const path = require("path");
+const FileManager = require("../../file-manager");
 
 async function provideDefinition(document, position) {
   const fileManager = new FileManager(document, position);

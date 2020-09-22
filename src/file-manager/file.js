@@ -1,5 +1,5 @@
-const path = require('path');
-const { isDirectory } = require('../utils');
+const path = require("path");
+const { isDirectory } = require("../utils");
 
 class File {
   constructor(fileName, dir) {
