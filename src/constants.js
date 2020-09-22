@@ -1,5 +1,5 @@
-const DEFAULT_FILE = "index";
-const DEFAULT_STYLES_FILE = "style";
+const DEFAULT_FILE = 'index';
+const DEFAULT_STYLES_FILE = 'style';
 
 module.exports = {
   DEFAULT_FILE,

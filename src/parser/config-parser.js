@@ -1,7 +1,7 @@
-const { Parser } = require("acorn");
-const walk = require("acorn-walk");
-const { EXPRESSION_TYPES } = require("./types");
-const { alias } = require("../alias/alias-map");
+const { Parser } = require('acorn');
+const walk = require('acorn-walk');
+const { EXPRESSION_TYPES } = require('./types');
+const { alias } = require('../alias/alias-map');
 
 class ConfigParser {
   static createMappingsFromConfig(rawText, ctx) {
@@ -10,7 +10,7 @@ class ConfigParser {
 
     walk.simple(ast, {
       Property(node) {
-        if (node.key.name === "alias") {
+        if (node.key.name === 'alias') {
           node.value.properties.forEach((prop) => {
             const key = prop.key.value;
             const value = prop.value;
@@ -24,7 +24,7 @@ class ConfigParser {
         }
       },
       CallExpression(node) {
-        if (node.callee.name === "alias") {
+        if (node.callee.name === 'alias') {
           node.arguments.forEach((arg) => {
             arg.properties.forEach((prop) => {
               const key = prop.key.value;

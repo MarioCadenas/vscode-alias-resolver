@@ -1,6 +1,6 @@
-const { alias } = require("../alias/alias-map");
-const { readdir } = require("fs");
-const { promisify } = require("util");
+const { alias } = require('../alias/alias-map');
+const { readdir } = require('fs');
+const { promisify } = require('util');
 
 const readdirAsync = promisify(readdir);
 
@@ -43,11 +43,11 @@ function resolveAliasPath(path) {
     path.startsWith(aliasKey)
   );
 
-  return alias.get(matchingAlias) || "";
+  return alias.get(matchingAlias) || '';
 }
 
 function isAbsolutePath(path) {
-  return path.startsWith("/");
+  return path.startsWith('/');
 }
 
 async function getNodesInPath(path) {
