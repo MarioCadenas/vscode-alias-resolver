@@ -24,10 +24,6 @@ It is also a must that vscode autocompletes this kind of routes when we are typi
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
 - `alias-resolver.file`: File where your alias definition is.
