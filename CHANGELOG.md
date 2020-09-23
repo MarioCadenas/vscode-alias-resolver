@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/MarioCadenas/vscode-alias-resolver/compare/v1.2.0...v1.3.0) (2020-09-23)
+
+
+### Features
+
+* **Workflow:** Publish only on gh release ([#17](https://github.com/MarioCadenas/vscode-alias-resolver/issues/17)) ([2e0b044](https://github.com/MarioCadenas/vscode-alias-resolver/commit/2e0b0440ef7d18a607dec472a0d0cbe5fc59c5e0))
+
 # [1.2.0](https://github.com/MarioCadenas/vscode-alias-resolver/compare/v1.1.0...v1.2.0) (2020-09-23)
 
 
