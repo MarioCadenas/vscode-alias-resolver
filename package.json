@@ -4,6 +4,7 @@
   "description": "Automatically resolve webpack aliases",
   "publisher": "mariocadenas",
   "version": "0.0.1",
+  "private": true,
   "engines": {
     "vscode": "^1.44.0"
   },
