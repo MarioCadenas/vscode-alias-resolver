@@ -1,7 +1,7 @@
 {
   "name": "alias-resolver",
   "displayName": "alias-resolver",
-  "description": "Automatically resolve webpack aliases",
+  "description": "Automatically resolve aliases",
   "publisher": "mariocadenas",
   "version": "0.0.1",
   "private": true,
