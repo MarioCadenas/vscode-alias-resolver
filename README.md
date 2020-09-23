@@ -1,20 +1,26 @@
-# alias-resolver README
+# alias-resolver
 
-This is the README for your extension "alias-resolver". After writing up a brief description, we recommend including the following sections.
+The main idea of this extension is to automatically pick your alias configuration, and resolve all these aliases throughout the code. VSCode has a way to do this by defining a `jsconfig.json` file, but this means that you have to make the file and in case you change the aliases you need to modify them in at least two places.
+
+This extension is heavily inspired on webstorm's behavior, it reads the webpack configuration, and resolve the aliases based on this.
+
+What if you don't use webpack? Well, this extension lets you define which file you want it to read. So you could use rollup for instance.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Imagine this webpack configuration
 
-For example if there is an image subfolder under your extension project workspace:
+![Route resolving](images/webpack-config.png)
 
-\!\[feature X\]\(images/feature-x.png\)
+and look at this React component example
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![Route resolving](images/some-js-example.png)
 
-## Requirements
+Most probably you would like your editor to know where that route to that file is. So you can autocomplete, or even navigate to the different folders or the file. This extension will resolve that route for you.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+It is also a must that vscode autocompletes this kind of routes when we are typing an import. This extension will do that too!
+
+![Autocomplete](images/autocomplete.png)
 
 ## Extension Settings
 
@@ -24,42 +30,4 @@ For example:
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- `alias-resolver.file`: File where your alias definition is.
