@@ -16,9 +16,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-      - name: VSCode release extension
-        uses: lannonbr/vsce-action@master
-        env:
-          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
-        with:
-          args: 'publish -p $VSCE_TOKEN'
