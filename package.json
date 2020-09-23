@@ -2,7 +2,7 @@
   "name": "alias-resolver",
   "displayName": "alias-resolver",
   "description": "Automatically resolve webpack aliases",
-  "publisher": "mario-cadenas",
+  "publisher": "mariocadenas",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.44.0"
@@ -13,6 +13,10 @@
   "activationEvents": [
     "*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarioCadenas/vscode-alias-resolver"
+  },
   "main": "./extension.js",
   "contributes": {
     "configuration": {
