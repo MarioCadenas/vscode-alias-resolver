@@ -1,42 +1,33 @@
 const path = require('path');
-const Mocha = require('mocha');
-const glob = require('glob');
+const { runCLI } = require('@jest/core');
 
-function run() {
-	// Create the mocha test
-	const mocha = new Mocha({
-		ui: 'tdd',
-		color: true
-	});
+const VSCodeJestRunner = {
+  run(testsRoot, reportTestResults) {
+    const projectRootPath = path.join(__dirname, '../..');
+    const config = path.join(projectRootPath, 'jest.e2e.config.js');
 
-	const testsRoot = path.resolve(__dirname, '..');
+    return runCLI({ config }, [projectRootPath])
+      .then((jestCliCallResult) => {
+        jestCliCallResult.results.testResults.forEach((testResult) => {
+          testResult.testResults
+            .filter((assertionResult) => assertionResult.status === 'passed')
+            .forEach(({ ancestorTitles, title, status }) => {
+              console.info(`  ● ${ancestorTitles} › ${title} (${status})`);
+            });
+        });
 
-	return new Promise((c, e) => {
-		glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
-			if (err) {
-				return e(err);
-			}
+        jestCliCallResult.results.testResults.forEach((testResult) => {
+          if (testResult.failureMessage) {
+            console.error(testResult.failureMessage);
+          }
+        });
 
-			// Add files to the test suite
-			files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
-
-			try {
-				// Run the mocha test
-				mocha.run(failures => {
-					if (failures > 0) {
-						e(new Error(`${failures} tests failed.`));
-					} else {
-						c();
-					}
-				});
-			} catch (err) {
-				console.error(err);
-				e(err);
-			}
-		});
-	});
-}
-
-module.exports = {
-	run
+        reportTestResults(undefined, jestCliCallResult.results.numFailedTests);
+      })
+      .catch((errorCaughtByJestRunner) => {
+        reportTestResults(errorCaughtByJestRunner, 0);
+      });
+  },
 };
+
+module.exports = VSCodeJestRunner;
