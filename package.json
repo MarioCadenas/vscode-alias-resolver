@@ -24,7 +24,7 @@
       "title": "alias-resolver",
       "type": "object",
       "properties": {
-        "file": {
+        "alias-resolver.file": {
           "type": "string",
           "default": "",
           "description": "File with alias mappings such as webpack.js or rollup.config.js"

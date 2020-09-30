@@ -9,6 +9,13 @@ function getConfig() {
   };
 }
 
+function updateConfig(file) {
+  const config = vscode.workspace.getConfiguration('alias-resolver');
+
+  return config.update('file', file, vscode.ConfigurationTarget.Workspace);
+}
+
 module.exports = {
   getConfig,
+  updateConfig,
 };
