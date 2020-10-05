@@ -26,6 +26,10 @@ async function activate(context) {
     }
 
     fileName = await configureFile();
+
+    if (!fileName) {
+      return;
+    }
   }
 
   vscode.workspace
