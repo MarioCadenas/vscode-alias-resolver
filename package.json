@@ -30,7 +30,14 @@
           "description": "File with alias mappings such as webpack.js or rollup.config.js"
         }
       }
-    }
+    },
+    "commands": [
+      {
+        "command": "alias-resolver.updateConfigFile",
+        "title": "Update configuration file",
+        "category": "Alias resolver"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",

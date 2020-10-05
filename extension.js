@@ -1,14 +1,16 @@
 const vscode = require('vscode');
-const path = require('path');
+const registerCommands = require('./src/commands');
+const registerProviders = require('./src/providers');
 const { ConfigParser } = require('./src/parser');
-const { javascriptProvider } = require('./src/providers/javascript');
-const { getConfig, updateConfig } = require('./src/config');
+const { getConfig, configureFile } = require('./src/config');
 const { ACTIONS } = require('./src/constants');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 async function activate(context) {
+  registerCommands();
+
   const { file } = getConfig();
   let fileName;
 
@@ -23,22 +25,7 @@ async function activate(context) {
       return;
     }
 
-    const result = await vscode.window.showOpenDialog({
-      canSelectFiles: true,
-      canSelectFolders: false,
-      canSelectMany: false,
-    });
-
-    if (!result) {
-      return;
-    }
-
-    const [selectedFile] = result;
-    const { path: selectedFilePath } = selectedFile;
-
-    fileName = path.basename(selectedFilePath);
-
-    await updateConfig(fileName);
+    fileName = await configureFile();
   }
 
   vscode.workspace
@@ -48,40 +35,10 @@ async function activate(context) {
         vscode.window.showInformationMessage(
           `Using ${fileName || file} to resolve alias paths`
         );
-        const workspace = vscode.workspace.getWorkspaceFolder(document.uri);
-        const ctx = {
-          __dirname: workspace.uri.path,
-          __process: {
-            cwd() {
-              return vscode.workspace.rootPath;
-            },
-          },
-          path: require('path'),
-        };
         const text = document.getText();
 
-        ConfigParser.createMappingsFromConfig(text, ctx);
-
-        const {
-          provideCompletionItems,
-          provideDefinition,
-        } = javascriptProvider.providers;
-
-        const completionItemDisposable = vscode.languages.registerCompletionItemProvider(
-          javascriptProvider.selector,
-          { provideCompletionItems },
-          ...(javascriptProvider.triggerCharacters || [])
-        );
-
-        const definitionDisposable = vscode.languages.registerDefinitionProvider(
-          javascriptProvider.selector,
-          { provideDefinition }
-        );
-
-        context.subscriptions.push(
-          completionItemDisposable,
-          definitionDisposable
-        );
+        ConfigParser.createMappingsFromConfig(text);
+        registerProviders(context);
       });
     });
 }

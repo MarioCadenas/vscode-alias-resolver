@@ -3,7 +3,7 @@ const walk = require('acorn-walk');
 const { alias } = require('../alias/alias-map');
 
 class ConfigParser {
-  static createMappingsFromConfig(rawText, ctx) {
+  static createMappingsFromConfig(rawText) {
     const ast = Parser.parse(rawText);
 
     walk.simple(ast, {
