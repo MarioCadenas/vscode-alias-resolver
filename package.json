@@ -3,7 +3,7 @@
   "displayName": "Alias resolver",
   "description": "Automatically resolve aliases",
   "publisher": "mariocadenas",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "engines": {
     "vscode": "^1.44.0"
