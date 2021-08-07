@@ -43,3 +43,5 @@ module.exports = {
 ```
 
 This setting would be `a.b.alias`. If you are exporting an object with aliases directly on the root, then you can ignore this setting, or leave it as an empty string.
+
+## Extension commands

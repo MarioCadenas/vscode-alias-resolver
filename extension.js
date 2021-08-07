@@ -2,16 +2,16 @@ const vscode = require('vscode');
 const registerCommands = require('./src/commands');
 const registerProviders = require('./src/providers');
 const { ConfigParser } = require('./src/parser');
-const { getConfig, configureExtensionSettings } = require('./src/config');
+const userConfig = require('./src/user-config');
 const { ACTIONS } = require('./src/constants');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 async function activate(context) {
-  registerCommands();
+  registerCommands(userConfig);
 
-  let { file, type, accessPath } = getConfig();
+  let { file, type, accessPath } = userConfig.getConfig();
 
   if (!file) {
     const prompt = await vscode.window.showInformationMessage(
@@ -24,7 +24,11 @@ async function activate(context) {
       return;
     }
 
-    ({ file, type, accessPath } = await configureExtensionSettings());
+    ({
+      file,
+      type,
+      accessPath,
+    } = await userConfig.configureExtensionSettings());
 
     if (!file) {
       return;
@@ -33,7 +37,7 @@ async function activate(context) {
 
   vscode.workspace.onDidChangeConfiguration((event) => {
     if (event.affectsConfiguration('alias-resolver')) {
-      const { file, type, accessPath } = getConfig();
+      const { file, type, accessPath } = userConfig.getConfig();
 
       vscode.workspace.findFiles(file, '**/node_modules/**').then((result) => {
         const path = result[0].path;
