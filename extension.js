@@ -2,7 +2,7 @@ const vscode = require('vscode');
 const registerCommands = require('./src/commands');
 const registerProviders = require('./src/providers');
 const { ConfigParser } = require('./src/parser');
-const { getConfig, configureFile } = require('./src/config');
+const { getConfig, configureExtensionSettings } = require('./src/config');
 const { ACTIONS } = require('./src/constants');
 
 /**
@@ -25,7 +25,7 @@ async function activate(context) {
       return;
     }
 
-    fileName = await configureFile();
+    ({ file: fileName } = await configureExtensionSettings());
 
     if (!fileName) {
       return;

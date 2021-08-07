@@ -47,6 +47,11 @@
         "command": "alias-resolver.updateConfigFile",
         "title": "Update configuration file",
         "category": "Alias resolver"
+      },
+      {
+        "command": "alias-resolver.updateConfigType",
+        "title": "Update configuration type",
+        "category": "Alias resolver"
       }
     ]
   },
