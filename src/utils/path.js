@@ -46,10 +46,6 @@ function resolveAliasPath(path) {
   return alias.get(matchingAlias) || '';
 }
 
-function isAbsolutePath(path) {
-  return path.startsWith('/');
-}
-
 async function getNodesInPath(path) {
   try {
     return readdirAsync(path);
@@ -60,7 +56,6 @@ async function getNodesInPath(path) {
 
 module.exports = {
   isAliasPath,
-  isAbsolutePath,
   resolveAliasPath,
   getNodesInPath,
   getAliasFromPath,

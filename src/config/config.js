@@ -2,11 +2,14 @@ const vscode = require('vscode');
 const path = require('path');
 
 function getConfig() {
-  const { file, path } = vscode.workspace.getConfiguration('alias-resolver');
+  const { file, path, type } = vscode.workspace.getConfiguration(
+    'alias-resolver'
+  );
 
   return {
     file,
     path,
+    type,
   };
 }
 
@@ -27,6 +30,7 @@ async function configureFile() {
     return;
   }
 
+  // TODO: add proper route to settings file
   const [selectedFile] = result;
   const { path: selectedFilePath } = selectedFile;
 

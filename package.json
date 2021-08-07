@@ -28,6 +28,17 @@
           "type": "string",
           "default": "",
           "description": "File with alias mappings such as webpack.js or rollup.config.js"
+        },
+        "alias-resolver.type": {
+          "type": "string",
+          "default": "webpack",
+          "enum": ["webpack", "custom"],
+          "description": "Type of file with alias mappings."
+        },
+        "alias-resolver.object-path": {
+          "type": "string",
+          "default": "resolve.alias",
+          "description": "Access to the object where the alias are using string annotation. e.g. 'resolve.alias' or 'a.b[0].d'"
         }
       }
     },
@@ -81,6 +92,7 @@
   },
   "dependencies": {
     "acorn": "^7.1.1",
-    "acorn-walk": "^7.1.1"
+    "acorn-walk": "^7.1.1",
+    "lodash.get": "^4.4.2"
   }
 }

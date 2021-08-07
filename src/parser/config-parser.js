@@ -1,44 +1,47 @@
-const { Parser } = require('acorn');
-const walk = require('acorn-walk');
 const { alias } = require('../alias/alias-map');
+const get = require('lodash.get');
+
+const TYPES = {
+  WEBPACK: 'webpack',
+  ROLLUP: 'rollup',
+  CUSTOM: 'custom',
+};
 
 class ConfigParser {
-  static createMappingsFromConfig(rawText) {
-    const ast = Parser.parse(rawText);
+  _webpackAdapter(fileConfig) {
+    return get(fileConfig, ACCESS_PATHS[TYPES.WEBPACK]);
+  }
 
-    walk.simple(ast, {
-      Property(node) {
-        if (node.key.name === 'alias') {
-          node.value.properties.forEach((prop) => {
-            const key = prop.key.value;
-            const value = prop.value;
+  _customConfigAdapter(fileConfig, accessPath = ACCESS_PATHS[TYPES.CUSTOM]) {
+    return get(fileConfig, accessPath, fileConfig);
+  }
 
-            walk.simple(value, {
-              Literal(node) {
-                key && node.value && alias.set(key, node.value);
-              },
-            });
-          });
-        }
-      },
-      CallExpression(node) {
-        if (node.callee.name === 'alias') {
-          node.arguments.forEach((arg) => {
-            arg.properties.forEach((prop) => {
-              const key = prop.key.value;
-              const value = prop.value;
+  createMappingsFromConfig(fileConfig, options = { type: TYPES.WEBPACK }) {
+    let objWithAlias = {};
 
-              walk.simple(value, {
-                Literal(node) {
-                  key && node.value && alias.set(key, node.value);
-                },
-              });
-            });
-          });
-        }
-      },
-    });
+    switch (options.type) {
+      case TYPES.WEBPACK:
+        objWithAlias = this._webpackAdapter(fileConfig);
+        break;
+      case TYPES.CUSTOM:
+        objWithAlias = this._customConfigAdapter(
+          fileConfig,
+          options.accessPath
+        );
+        break;
+    }
+
+    for (const [key, path] of Object.entries(objWithAlias)) {
+      alias.set(key, path);
+    }
+
+    console.log(alias.keys(), alias.values());
   }
 }
 
-module.exports = { ConfigParser };
+const ACCESS_PATHS = {
+  [TYPES.WEBPACK]: 'resolve.alias',
+  [TYPES.CUSTOM]: '',
+};
+
+module.exports = { ConfigParser: new ConfigParser() };

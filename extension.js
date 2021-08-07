@@ -11,7 +11,7 @@ const { ACTIONS } = require('./src/constants');
 async function activate(context) {
   registerCommands();
 
-  const { file } = getConfig();
+  const { file, type } = getConfig();
   let fileName;
 
   if (!file) {
@@ -34,19 +34,18 @@ async function activate(context) {
 
   vscode.workspace
     .findFiles(fileName || file, '**/node_modules/**')
-    .then(([{ path }]) => {
-      vscode.workspace.openTextDocument(path).then((document) => {
-        vscode.window.showInformationMessage(
-          `Using ${fileName || file} to resolve alias paths`
-        );
-        const text = document.getText();
+    .then((result) => {
+      const path = result[0].path;
+      const file = require(path);
 
-        ConfigParser.createMappingsFromConfig(text);
-        registerProviders(context);
-      });
+      vscode.window.showInformationMessage(
+        `Using ${path} to resolve alias paths`
+      );
+
+      ConfigParser.createMappingsFromConfig(file, { type });
+      registerProviders(context);
     });
 }
-exports.activate = activate;
 
 function deactivate() {}
 
