@@ -11,8 +11,7 @@ const { ACTIONS } = require('./src/constants');
 async function activate(context) {
   registerCommands();
 
-  const { file, type } = getConfig();
-  let fileName;
+  let { file, type, accessPath } = getConfig();
 
   if (!file) {
     const prompt = await vscode.window.showInformationMessage(
@@ -25,26 +24,41 @@ async function activate(context) {
       return;
     }
 
-    ({ file: fileName } = await configureExtensionSettings());
+    ({ file, type, accessPath } = await configureExtensionSettings());
 
-    if (!fileName) {
+    if (!file) {
       return;
     }
   }
 
-  vscode.workspace
-    .findFiles(fileName || file, '**/node_modules/**')
-    .then((result) => {
-      const path = result[0].path;
-      const file = require(path);
+  vscode.workspace.onDidChangeConfiguration((event) => {
+    if (event.affectsConfiguration('alias-resolver')) {
+      const { file, type, accessPath } = getConfig();
 
-      vscode.window.showInformationMessage(
-        `Using ${path} to resolve alias paths`
-      );
+      vscode.workspace.findFiles(file, '**/node_modules/**').then((result) => {
+        const path = result[0].path;
+        const config = require(path);
 
-      ConfigParser.createMappingsFromConfig(file, { type });
-      registerProviders(context);
-    });
+        vscode.window.showInformationMessage(
+          `Using ${file} to resolve alias paths`
+        );
+
+        ConfigParser.createMappingsFromConfig(config, { type, accessPath });
+      });
+    }
+  });
+
+  vscode.workspace.findFiles(file, '**/node_modules/**').then((result) => {
+    const path = result[0].path;
+    const config = require(path);
+
+    vscode.window.showInformationMessage(
+      `Using ${file} to resolve alias paths`
+    );
+
+    ConfigParser.createMappingsFromConfig(config, { type, accessPath });
+    registerProviders(context);
+  });
 }
 
 function deactivate() {}

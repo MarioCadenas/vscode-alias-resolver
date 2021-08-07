@@ -35,10 +35,10 @@
           "enum": ["webpack", "custom"],
           "description": "Type of file with alias mappings."
         },
-        "alias-resolver.object-path": {
+        "alias-resolver.accessPath": {
           "type": "string",
           "default": "resolve.alias",
-          "description": "Access to the object where the alias are using string annotation. e.g. 'resolve.alias' or 'a.b[0].d'"
+          "description": "Access to the object where the alias are, using string annotation. e.g. 'resolve.alias' or 'a.b[0].d'"
         }
       }
     },
@@ -51,6 +51,11 @@
       {
         "command": "alias-resolver.updateConfigType",
         "title": "Update configuration type",
+        "category": "Alias resolver"
+      },
+      {
+        "command": "alias-resolver.updateConfigAccessType",
+        "title": "Update configuration access path to object",
         "category": "Alias resolver"
       }
     ]
