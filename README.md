@@ -27,3 +27,19 @@ It is also a must that vscode autocompletes this kind of routes when we are typi
 This extension contributes the following settings:
 
 - `alias-resolver.file`: File where your alias definition is.
+- `alias-resolver.type`: The type of config you will be using. [webpack | custom]
+- `alias-resolve.accessPath`: This settings lets you define where do you aliases leave. For instance, if you export an object from your file with a shape like this:
+
+```js
+module.exports = {
+  a: {
+    b: {
+      alias: {
+        '@': path.resolve(__dirname, 'src/')
+      }
+    }
+  }
+}
+```
+
+This setting would be `a.b.alias`. If you are exporting an object with aliases directly on the root, then you can ignore this setting, or leave it as an empty string.
