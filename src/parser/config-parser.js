@@ -7,6 +7,11 @@ const TYPES = {
   CUSTOM: 'custom',
 };
 
+const ACCESS_PATHS = {
+  [TYPES.WEBPACK]: 'resolve.alias',
+  [TYPES.CUSTOM]: '',
+};
+
 class ConfigParser {
   _webpackAdapter(fileConfig) {
     return get(fileConfig, ACCESS_PATHS[TYPES.WEBPACK]);
@@ -38,10 +43,5 @@ class ConfigParser {
     console.log(alias.keys(), alias.values());
   }
 }
-
-const ACCESS_PATHS = {
-  [TYPES.WEBPACK]: 'resolve.alias',
-  [TYPES.CUSTOM]: '',
-};
 
 module.exports = { ConfigParser: new ConfigParser() };
