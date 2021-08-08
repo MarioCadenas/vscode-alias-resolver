@@ -1,4 +1,4 @@
-const { alias } = require('../alias/alias-map');
+const alias = require('../alias/alias-map');
 const get = require('lodash.get');
 
 const TYPES = {
@@ -39,8 +39,6 @@ class ConfigParser {
     for (const [key, path] of Object.entries(objWithAlias)) {
       alias.set(key, path);
     }
-
-    console.log(alias.keys(), alias.values());
   }
 }
 

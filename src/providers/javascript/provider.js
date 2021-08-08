@@ -1,14 +1,17 @@
 const { provideDefinition } = require('./provide-definition');
 const { provideCompletionItems } = require('./provide-completion-items');
-const { alias } = require('../../alias/alias-map');
 
-const javaScriptProvider = {
-  selector: { scheme: 'file', language: 'javascript' },
-  providers: {
-    provideCompletionItems,
-    provideDefinition,
-  },
-  triggerCharacters: ['/', '"', "'", ...alias.keys()],
-};
+function getJavascriptProvider(alias) {
+  const aliasKeys = Array.from(alias.keys());
 
-module.exports = javaScriptProvider;
+  return {
+    selector: { scheme: 'file', language: 'javascript' },
+    providers: {
+      provideCompletionItems,
+      provideDefinition,
+    },
+    triggerCharacters: ['/', '"', "'", ...aliasKeys],
+  };
+}
+
+module.exports = getJavascriptProvider;

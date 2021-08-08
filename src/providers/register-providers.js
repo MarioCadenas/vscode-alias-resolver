@@ -1,7 +1,9 @@
 const vscode = require('vscode');
-const { javascriptProvider } = require('./javascript');
+const getJavascriptProvider = require('./javascript');
+const alias = require('../alias/alias-map');
 
 function registerProviders(context) {
+  const javascriptProvider = getJavascriptProvider(alias);
   const {
     provideCompletionItems,
     provideDefinition,
