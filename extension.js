@@ -35,6 +35,7 @@ async function activate(context) {
     }
   }
 
+  // TODO: Refactor how this is handle so there's no repeated code
   vscode.workspace.onDidChangeConfiguration((event) => {
     if (event.affectsConfiguration('alias-resolver')) {
       const { file, type, accessPath } = userConfig.getConfig();
