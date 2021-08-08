@@ -61,6 +61,10 @@ class UserConfig {
         detail: 'If your config is a typical webpack config.',
       },
       {
+        label: 'rollup',
+        detail: 'If your config is a typical rollup config.',
+      },
+      {
         label: 'custom',
         detail:
           'If you are using a custom config and you will define how to access to the object.',

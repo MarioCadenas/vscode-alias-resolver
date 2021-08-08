@@ -48,7 +48,11 @@ async function activate(context) {
           `Using ${file} to resolve alias paths`
         );
 
-        ConfigParser.createMappingsFromConfig(config, { type, accessPath });
+        ConfigParser.createMappingsFromConfig(
+          config,
+          { type, accessPath },
+          path
+        );
       });
     }
   });
@@ -61,7 +65,7 @@ async function activate(context) {
       `Using ${file} to resolve alias paths`
     );
 
-    ConfigParser.createMappingsFromConfig(config, { type, accessPath });
+    ConfigParser.createMappingsFromConfig(config, { type, accessPath }, path);
     registerProviders(context);
   });
 }
