@@ -1,3 +1,3 @@
 const alias = new Map();
 
-module.exports = { alias };
+module.exports = alias;

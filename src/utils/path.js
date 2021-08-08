@@ -1,4 +1,4 @@
-const { alias } = require('../alias/alias-map');
+const alias = require('../alias/alias-map');
 const { readdir } = require('fs');
 const { promisify } = require('util');
 
@@ -24,7 +24,7 @@ function getAliasFromPath(path) {
 function sortAliasFromLongerToShorter(aliasKeys) {
   return [...aliasKeys].sort((a, b) => {
     if (a.length > b.length) return -1;
-    if (b.length > a.lenght) return 1;
+    if (b.length > a.length) return 1;
     return 0;
   });
 }
@@ -46,10 +46,6 @@ function resolveAliasPath(path) {
   return alias.get(matchingAlias) || '';
 }
 
-function isAbsolutePath(path) {
-  return path.startsWith('/');
-}
-
 async function getNodesInPath(path) {
   try {
     return readdirAsync(path);
@@ -60,7 +56,6 @@ async function getNodesInPath(path) {
 
 module.exports = {
   isAliasPath,
-  isAbsolutePath,
   resolveAliasPath,
   getNodesInPath,
   getAliasFromPath,

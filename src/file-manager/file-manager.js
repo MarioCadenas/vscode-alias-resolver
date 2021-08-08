@@ -1,12 +1,11 @@
-const path = require('path');
 const vscode = require('vscode');
+const path = require('path');
 const {
   getNodesInPath,
   isAliasPath,
   getImportPath,
   getAliasFromPath,
   resolveAliasPath,
-  isAbsolutePath,
 } = require('../utils');
 const { DEFAULT_FILE } = require('../constants');
 const File = require('./file');
@@ -32,7 +31,8 @@ class FileManager {
     const rootPath = workspace.uri.path;
     const resolvedAlias = resolveAliasPath(this.importPath);
     const resolvedPath = this.importPath.replace(alias, resolvedAlias);
-    return isAbsolutePath(resolvedPath)
+
+    return path.isAbsolute(resolvedPath)
       ? resolvedPath
       : path.join(rootPath, resolvedPath);
   }

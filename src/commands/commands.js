@@ -1,10 +1,17 @@
 const vscode = require('vscode');
-const { configureFile } = require('../config');
 
-function registerCommands() {
+function registerCommands(userConfig) {
   vscode.commands.registerCommand(
     'alias-resolver.updateConfigFile',
-    configureFile
+    userConfig.updateConfigFile.bind(userConfig)
+  );
+  vscode.commands.registerCommand(
+    'alias-resolver.updateConfigType',
+    userConfig.updateConfigType.bind(userConfig)
+  );
+  vscode.commands.registerCommand(
+    'alias-resolver.updateConfigAccessType',
+    userConfig.updateConfigAccessPath.bind(userConfig)
   );
 }
 

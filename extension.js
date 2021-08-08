@@ -2,17 +2,16 @@ const vscode = require('vscode');
 const registerCommands = require('./src/commands');
 const registerProviders = require('./src/providers');
 const { ConfigParser } = require('./src/parser');
-const { getConfig, configureFile } = require('./src/config');
+const userConfig = require('./src/user-config');
 const { ACTIONS } = require('./src/constants');
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 async function activate(context) {
-  registerCommands();
+  registerCommands(userConfig);
 
-  const { file } = getConfig();
-  let fileName;
+  let { file, type, accessPath } = userConfig.getConfig();
 
   if (!file) {
     const prompt = await vscode.window.showInformationMessage(
@@ -25,28 +24,47 @@ async function activate(context) {
       return;
     }
 
-    fileName = await configureFile();
+    ({
+      file,
+      type,
+      accessPath,
+    } = await userConfig.configureExtensionSettings());
 
-    if (!fileName) {
+    if (!file) {
       return;
     }
   }
 
-  vscode.workspace
-    .findFiles(fileName || file, '**/node_modules/**')
-    .then(([{ path }]) => {
-      vscode.workspace.openTextDocument(path).then((document) => {
-        vscode.window.showInformationMessage(
-          `Using ${fileName || file} to resolve alias paths`
-        );
-        const text = document.getText();
+  // TODO: Refactor how this is handle so there's no repeated code
+  vscode.workspace.onDidChangeConfiguration((event) => {
+    if (event.affectsConfiguration('alias-resolver')) {
+      const { file, type, accessPath } = userConfig.getConfig();
 
-        ConfigParser.createMappingsFromConfig(text);
-        registerProviders(context);
+      vscode.workspace.findFiles(file, '**/node_modules/**').then((result) => {
+        const path = result[0].path;
+        const config = require(path);
+
+        vscode.window.showInformationMessage(
+          `Using ${file} to resolve alias paths`
+        );
+
+        ConfigParser.createMappingsFromConfig(config, { type, accessPath });
       });
-    });
+    }
+  });
+
+  vscode.workspace.findFiles(file, '**/node_modules/**').then((result) => {
+    const path = result[0].path;
+    const config = require(path);
+
+    vscode.window.showInformationMessage(
+      `Using ${file} to resolve alias paths`
+    );
+
+    ConfigParser.createMappingsFromConfig(config, { type, accessPath });
+    registerProviders(context);
+  });
 }
-exports.activate = activate;
 
 function deactivate() {}
 
