@@ -4,7 +4,7 @@ The main idea of this extension is to automatically pick your alias configuratio
 
 This extension is heavily inspired on webstorm's behavior, it reads the webpack configuration, and resolve the aliases based on this.
 
-What if you don't use webpack? Well, this extension lets you define which file you want it to read. So you could use rollup for instance.
+What if you don't use webpack? Well, this extension lets you define which file you want it to read and you can also customize the way it access to the object.
 
 ## Features
 
@@ -27,7 +27,7 @@ It is also a must that vscode autocompletes this kind of routes when we are typi
 This extension contributes the following settings:
 
 - `alias-resolver.file`: File where your alias definition is.
-- `alias-resolver.type`: The type of config you will be using. [webpack | custom]
+- `alias-resolver.type`: The type of config you will be using. [webpack | rollup | custom]
 - `alias-resolve.accessPath`: This settings lets you define where do you aliases leave. For instance, if you export an object from your file with a shape like this:
 
 ```js
@@ -45,3 +45,21 @@ module.exports = {
 This setting would be `a.b.alias`. If you are exporting an object with aliases directly on the root, then you can ignore this setting, or leave it as an empty string.
 
 ## Extension commands
+
+```json
+      {
+        "command": "alias-resolver.updateConfigFile",
+        "title": "Update configuration file",
+        "category": "Alias resolver"
+      },
+      {
+        "command": "alias-resolver.updateConfigType",
+        "title": "Update configuration type",
+        "category": "Alias resolver"
+      },
+      {
+        "command": "alias-resolver.updateConfigAccessType",
+        "title": "Update configuration access path to object",
+        "category": "Alias resolver"
+      }
+```
