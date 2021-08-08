@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/MarioCadenas/vscode-alias-resolver/compare/v1.4.1...v1.5.0) (2021-08-08)
+
+
+### Features
+
+* **FileSupport:** Extended file support and configuration ([#35](https://github.com/MarioCadenas/vscode-alias-resolver/issues/35)) ([f22de27](https://github.com/MarioCadenas/vscode-alias-resolver/commit/f22de277b35195ce773c4b28566a9c9ab31eca2c))
+
 ## [1.4.1](https://github.com/MarioCadenas/vscode-alias-resolver/compare/v1.4.0...v1.4.1) (2020-10-05)
 
 

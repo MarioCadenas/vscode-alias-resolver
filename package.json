@@ -3,7 +3,7 @@
   "displayName": "Alias resolver",
   "description": "Automatically resolve aliases",
   "publisher": "mariocadenas",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "private": true,
   "engines": {
     "vscode": "^1.44.0"
@@ -32,7 +32,10 @@
         "alias-resolver.type": {
           "type": "string",
           "default": "webpack",
-          "enum": ["webpack", "custom"],
+          "enum": [
+            "webpack",
+            "custom"
+          ],
           "description": "Type of file with alias mappings."
         },
         "alias-resolver.accessPath": {
